@@ -39,8 +39,6 @@ class BetaBinomial(Model):
         elif prior_model == self.JEFFREYS_PRIOR:
             self._prior_alpha, self._prior_beta = 0.5, 0.5
         elif prior_model == self.CUSTOM_PRIOR:
-            if "prior_alpha" not in st.session_state:
-                self._prior_alpha, self._prior_beta = 1, 1
             self._prior_alpha = st.sidebar.number_input("alpha", min_value=0.01)
             self._prior_beta = st.sidebar.number_input("beta", min_value=0.01)
 
