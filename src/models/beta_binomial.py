@@ -79,7 +79,7 @@ class BetaBinomial(Model):
             x = np.linspace(0, 1, 1000)
             ax.plot(x, dist_a.pdf(x), lw=2, label="Bucket A", color="red")
             ax.plot(x, dist_b.pdf(x), lw=2, label="Bucket B", color="blue")
-            ax.legend()
+            ax.legend(loc="upper right")
             plt.tight_layout()
             st.pyplot(fig)
 

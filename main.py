@@ -1,9 +1,12 @@
+import matplotlib.pyplot as plt
 import streamlit as st
 
 from src.models.beta_binomial import BetaBinomial
 from src.models.delta_lognormal import DeltaLognormal
 from src.models.model import Model
 from src.models.normal import Normal
+
+plt.style.use("seaborn-dark")
 
 st.set_page_config(layout="wide")
 st.title("Bayes-AB-Viz")
