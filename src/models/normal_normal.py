@@ -23,7 +23,7 @@ class NormalNormal(Model):
     def show_sidebar(self):
         st.sidebar.subheader("Prior Settings")
 
-        self._prior_mu = st.sidebar.number_input("mu")
+        self._prior_mu = st.sidebar.number_input("mu", step=1.0)
         if "sigma" not in st.session_state:
             st.session_state["sigma"] = 1
 
@@ -43,22 +43,22 @@ class NormalNormal(Model):
         st.sidebar.subheader("Bucket A Observation")
         self._sum_a = st.sidebar.number_input(
             "sum",
-            key="sum_a",
+            key="normal_sum_a",
             min_value=0.0,
             on_change=self._cb_enforce_at_least_one,
-            kwargs={"key_target": "n_a"},
+            kwargs={"key_target": "normal_n_a"},
         )
-        self._n_a = st.sidebar.number_input("n", key="n_a", min_value=0)
+        self._n_a = st.sidebar.number_input("n", key="normal_n_a", min_value=0)
 
         st.sidebar.subheader("Bucket B Observation")
         self._sum_b = st.sidebar.number_input(
             "sum",
-            key="sum_b",
+            key="normal_sum_b",
             min_value=0.0,
             on_change=self._cb_enforce_at_least_one,
-            kwargs={"key_target": "n_b"},
+            kwargs={"key_target": "normal_n_b"},
         )
-        self._n_b = st.sidebar.number_input("n", key="n_b", min_value=0)
+        self._n_b = st.sidebar.number_input("n", key="normal_n_b", min_value=0)
 
     def show_page(self):
         posterior_mu_a = (
@@ -82,6 +82,7 @@ class NormalNormal(Model):
         col1, col2 = st.columns(2)
 
         with col1:
+            st.markdown("### Posterior dist of $\mu$. ")
             fig = plt.figure()
             ax = plt.axes()
             x = np.linspace(
@@ -119,19 +120,17 @@ class NormalNormal(Model):
             lower_b, upper_b = dist_b.interval(0.95)
             win_rate_a, win_rate_b = _win_rate()
 
-            st.header("Report")
-            st.subheader(f"Bucket A Win Rate: {win_rate_a:.2f}")
             text = f"""
+            ### Bucket A Win Rate: {win_rate_a:.2f}
+
             - Expected Value    : {exp_a:.3f}
             - 95% Interval   : [{lower_a:.3f}, {upper_a:.3f}]
-            """
-            st.markdown(text)
+            
+            ### Bucket B Win Rate: {win_rate_b:.2f}
 
-            st.subheader(f"Bucket B Win Rate: {win_rate_b:.2f}")
-            text = f"""
             - Expected Value    : {exp_b:.3f}
             - 95% Interval   : [{lower_b:.3f}, {upper_b:.3f}]
             """
             st.markdown(text)
 
-            st.caption(f"Based on {self.N_TRIAL:,} sampling results.")
+        st.caption(f"Based on {self.N_TRIAL:,} sampling results.")

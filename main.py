@@ -4,7 +4,7 @@ import streamlit as st
 from src.models.beta_binomial import BetaBinomial
 from src.models.delta_lognormal import DeltaLognormal
 from src.models.model import Model
-from src.models.normal import NormalNormal
+from src.models.normal_normal import NormalNormal
 
 plt.style.use("seaborn-dark")
 
