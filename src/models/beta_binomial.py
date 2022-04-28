@@ -63,6 +63,10 @@ class BetaBinomial(Model):
             args=("beta_x_b", "beta_n_b"),
         )
         self._n_b = st.sidebar.number_input("n", key="beta_n_b", min_value=0)
+        st.sidebar.markdown("---")
+        st.sidebar._iframe(
+            src="https://ghbtns.com/github-btn.html?user=ymdpharm&repo=bayes-ab-viz&type=star&count=true"
+        )
 
     def show_page(self):
         posterior_alpha_a = self._prior_alpha + self._x_a
