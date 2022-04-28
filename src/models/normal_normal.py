@@ -4,6 +4,7 @@ import streamlit as st
 from scipy.stats import norm
 
 from src.models.model import Model
+from src.utils.templates import *
 
 
 class NormalNormal(Model):
@@ -61,10 +62,7 @@ class NormalNormal(Model):
             step=1.0,
         )
         self._n_b = st.sidebar.number_input("n", key="normal_n_b", min_value=0)
-        st.sidebar.markdown("---")
-        st.sidebar._iframe(
-            src="https://ghbtns.com/github-btn.html?user=ymdpharm&repo=bayes-ab-viz&type=star&count=true"
-        )
+        github()
 
     def show_page(self):
         posterior_mu_a = (
@@ -126,17 +124,8 @@ class NormalNormal(Model):
             lower_b, upper_b = dist_b.interval(0.95)
             win_rate_a, win_rate_b = _win_rate()
 
-            text = f"""
-            ### Bucket A Win Rate: {win_rate_a:.2f}
-
-            - Expected Value    : {exp_a:.3f}
-            - 95% Interval   : [{lower_a:.3f}, {upper_a:.3f}]
-            
-            ### Bucket B Win Rate: {win_rate_b:.2f}
-
-            - Expected Value    : {exp_b:.3f}
-            - 95% Interval   : [{lower_b:.3f}, {upper_b:.3f}]
-            """
-            st.markdown(text)
+            result(
+                win_rate_a, exp_a, lower_a, upper_a, win_rate_b, exp_b, lower_b, upper_b
+            )
 
         st.caption(f"Based on {self.N_TRIAL:,} sampling results.")
