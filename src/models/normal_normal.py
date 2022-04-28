@@ -47,6 +47,7 @@ class NormalNormal(Model):
             min_value=0.0,
             on_change=self._cb_enforce_at_least_one,
             kwargs={"key_target": "normal_n_a"},
+            step=1.0,
         )
         self._n_a = st.sidebar.number_input("n", key="normal_n_a", min_value=0)
 
@@ -57,6 +58,7 @@ class NormalNormal(Model):
             min_value=0.0,
             on_change=self._cb_enforce_at_least_one,
             kwargs={"key_target": "normal_n_b"},
+            step=1.0,
         )
         self._n_b = st.sidebar.number_input("n", key="normal_n_b", min_value=0)
 
